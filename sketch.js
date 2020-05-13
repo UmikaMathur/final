@@ -1,4 +1,4 @@
-let array = [];
+let myArray = [];
 let backgroundColor = [];
 
 function setup() {
@@ -18,14 +18,44 @@ function draw() {
 
 
     stroke(map(mouseX, 0, 600, 0, 255, true))
+    line(mouseX, mouseY, pmouseX, pmouseY);
     line(width - mouseX, height - mouseY, width - pmouseX, height - pmouseY);
-    line(mouseX, mouseY, pmouseX, pmouseY,);
-    array.push([mouseX, mouseY]);
+    myArray.push([mouseX, mouseY]);
+    myArray.push([pmouseX, pmouseY]);
+
+
+colors = ['red', 'orange', 'yellow', 'green', 'blue' ,'indigo', 'violet'];
+first_color_index = 0;
+second_color_index = 1;
+C1 = colors[first_color_index]
+C2 = colors[second_color_index]
+X = 10 //This number represents the amount of C1 we want to add
+function draw() {
+	color_1 = lerpColor(color(C1), color(C2),(10-X)/10);
+	background(color_1); //Red
+	X = X - 1;
+if (X < 0) {
+	first_color_index = first_color_index + 1;
+	second_color_index = second_color_index + 1;
+		X = 10;
+		C1 = colors[first_color_index];
+		C2 = colors[second_color_index];
+	}
+}
+
 
     beginShape();
-    for(let i = 0; i < array.length; i++){
-      line(array[i][0], array[i][1], array[i + 1][0], array[i + 1][1]);
-      console.log(i);
+   // print(myArray);
+    for(let i = 0; i < myArray.length - 1; i++){
+   // print(myArray[0]);
+   // print (myArray[0][0]);
+      x1 = myArray[i][0]
+      y1 = myArray[i][1]
+      x2 = myArray[i + 1][0]
+      y2 = myArray[i + 1][1]
+      line(x1, y1, x2, y2);
+      line(width - myArray[i][0], height - myArray[i][1], width - myArray[i + 1][0], height - myArray[i + 1][1]);
+   //   console.log(i);
     }
     endShape();
   }
@@ -44,8 +74,8 @@ function keyTyped(){
   background(296, 42, 49);
 
   beginShape();
-  for(let i = 0; i < array.length; i++){
-    line(array[i][0], array[i][1], array[i + 1][0], array[i + 1][1]);
+  for(let i = 0; i < myArray.length; i++){
+    line(myArray[i][0], myArray[i][1], myArray[i + 1][0], myArray[i + 1][1]);
     console.log(i);
   }
   endShape();
@@ -57,7 +87,7 @@ function keyTyped(){
 
 function mousePressed() {
   console.log("mouse pressed function");
-  array = [];
-  console.log(array)
+  myArray = [];
+  console.log(myArray)
   backgroundColor = 255;
 }
