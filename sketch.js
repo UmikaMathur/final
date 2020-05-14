@@ -1,6 +1,14 @@
 let myArray = [];
 let backgroundColor = [];
 
+
+colors = ['red', 'orange', 'yellow', 'green', 'blue' ,'indigo', 'violet'];
+first_color_index = 0;
+second_color_index = 1;
+C1 = colors[first_color_index]
+C2 = colors[second_color_index]
+X = 100 //This number represents the amount of C1 we want to add
+
 function setup() {
   createCanvas(600, 600);
   backgroundColor = color(296, 42, 49)
@@ -11,10 +19,28 @@ function setup() {
 }
 
 function draw() {
+	color_1 = lerpColor(color(C1), color(C2),(100-X)/100);
+	background(color_1); //Red
+	X = X - 1;
+    if (X < 0) {
+	  first_color_index = first_color_index + 1;
+	  second_color_index = second_color_index + 1;
+		X = 100;
+        if (first_color_index == 7) {
+            first_color_index = 0;
+        }
+        if (second_color_index = 7) {
+        second_color_index = 0;
+        }
+		C1 = colors[first_color_index];
+		C2 = colors[second_color_index];
+	}
+
+
   if (mouseIsPressed){
-    background(0);
-    backgroundColor -= 5;
-    background(backgroundColor);
+    //background(0);
+    //backgroundColor -= 5;
+    //background(backgroundColor);
 
 
     stroke(map(mouseX, 0, 600, 0, 255, true))
@@ -22,28 +48,6 @@ function draw() {
     line(width - mouseX, height - mouseY, width - pmouseX, height - pmouseY);
     myArray.push([mouseX, mouseY]);
     myArray.push([pmouseX, pmouseY]);
-
-
-colors = ['red', 'orange', 'yellow', 'green', 'blue' ,'indigo', 'violet'];
-first_color_index = 0;
-second_color_index = 1;
-C1 = colors[first_color_index]
-C2 = colors[second_color_index]
-X = 10 //This number represents the amount of C1 we want to add
-function draw() {
-	color_1 = lerpColor(color(C1), color(C2),(10-X)/10);
-	background(color_1); //Red
-	X = X - 1;
-if (X < 0) {
-	first_color_index = first_color_index + 1;
-	second_color_index = second_color_index + 1;
-		X = 10;
-		C1 = colors[first_color_index];
-		C2 = colors[second_color_index];
-	}
-}
-
-
     beginShape();
    // print(myArray);
     for(let i = 0; i < myArray.length - 1; i++){
@@ -89,5 +93,5 @@ function mousePressed() {
   console.log("mouse pressed function");
   myArray = [];
   console.log(myArray)
-  backgroundColor = 255;
+  //backgroundColor = 255;
 }
